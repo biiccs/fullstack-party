@@ -1,0 +1,24 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    #Twig\Extensions\ArrayExtension: ~
+    Twig\Extensions\DateExtension: ~
+    #Twig\Extensions\IntlExtension: ~
+    #Twig\Extensions\TextExtension: ~
+
+    markdown.engine:
+        class: Aptoma\Twig\Extension\MarkdownEngine\GitHubMarkdownEngine
+        arguments:
+          - null
+          - true
+          - '%kernel.cache_dir%/github-markdown-cache'
+          - '@Github\Client'
+
+    twig.markdown:
+        class: Aptoma\Twig\Extension\MarkdownExtension
+        arguments: ['@markdown.engine']
+        tags:
+            - { name: twig.extension }

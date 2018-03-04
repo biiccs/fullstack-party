@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="top-menu">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="{{ path('issues') }}">
+                        <img class="logo" src="{{ asset('build/images/logo.png') }}"/>
+                    </a>
+                    <div class="logout pull-right">
+                        <i class="icon-logout"></i>
+                        <a href="">
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block app_body %}{% endblock %}
+{% endblock %}
+
+ {% block stylesheets %}
+     {{ parent() }}
+     <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+ {% endblock %}

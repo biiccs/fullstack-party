@@ -1,0 +1,99 @@
+{% extends 'app/layout.html.twig' %}
+
+{% macro issue(filter, issue) %}
+    <div class="panel panel-issues">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-1 hidden-sm hidden-xs">
+                    <i class="icon-{{ issue.state }}"></i>
+                </div>
+                <div class="col-md-10">
+                    <div class="title">
+                        <a href="{{ path('issue', {'id' : issue.number}) }}">{{ issue.title }}</a>
+                        {% for label in issue.labels %}
+                            <a class="label-link" href="{{ path('issues', {'labels' : label.name}) }}">
+                                <span class="label" style="background-color: #{{ label.color }};">
+                                    {{ label.name }}
+                                </span>
+                            </a>
+                        {% endfor %}
+                    </div>
+                    <div class="info">
+                        #{{ issue.number }} {{ issue.created_at|time_diff }} by
+                        <a href="{{ path('issues', {'creator' : issue.user.login, 'state' : filter.state|default }) }}">
+                            {{ issue.user.login }}
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-1 comments hidden-sm hidden-xs">
+                    <a href="{{ path('issue', {'id' : issue.number}) }}">
+                        {{ issue.comments }}
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro stats_count(filter, state, count) %}
+    <span class="stat {{ state }}{% if filter.state|default == state %} active{% endif %}">
+        <i class="icon-{{ state }}"></i>
+        {% set filter = filter|merge({'state' : state}) %}
+        {% if count %}
+            <a href="{{ path('issues', filter) }}">{{ count }} {{ state|capitalize }}</a>
+        {% else %}
+            {{ count }} {{ state|capitalize }}
+        {% endif %}
+    </span>
+{% endmacro %}
+
+{% macro pager_link(options, text) %}
+    {% if options %}
+        <a href="{{ path('issues', options) }}">{{ text }}</a>
+    {% else %}
+        {{ text }}
+    {% endif %}
+{% endmacro %}
+
+{% block title %}
+    Issues
+{% endblock %}
+
+{% block app_body %}
+    {% import _self as self %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 issues-col">
+                <div class="issues">
+                    <div class="issues-content">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <div class="issues-stats text-center">
+                                    {{ self.stats_count(filter, 'open', counting.open) }}
+                                    {{ self.stats_count(filter, 'closed', counting.closed) }}
+                                </div>
+                            </div>
+                        </div>
+                        {% for issue in issues %}
+                            {{ self.issue(filter, issue) }}
+                        {% endfor %}
+                    </div>
+                </div>
+                {{ include('app/pagination.html.twig', {
+                    currentPage: pagination.current,
+                    lastPage: pagination.total,
+                    currentFilters: filter
+                }) }}
+            </div>
+            <div class="col-md-6 right-side hidden-sm hidden-xs">
+                <div class="full-stack">
+                    <div class="head">
+                        Full Stack Developer Task
+                    </div>
+                    <div class="body">by</div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

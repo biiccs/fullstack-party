@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 index">
+                <div class="full-stack">
+                    <div class="logo"></div>
+                    <a class="btn btn-success" href="{{ path('issues') }}">Login With GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

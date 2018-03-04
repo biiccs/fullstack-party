@@ -1,0 +1,11 @@
+services:
+    Github\Cache:
+        class: Symfony\Component\Cache\Adapter\FilesystemAdapter
+        parent: 'cache.adapter.filesystem'
+
+    Github\Client:
+        class: Github\Client
+        public: true
+        calls:
+            - ['authenticate', ['%env(GITHUB_USERNAME)%', '%env(GITHUB_SECRET)%', '%env(GITHUB_AUTH_METHOD)%']]
+            - ['addCache', ['@Github\Cache']]

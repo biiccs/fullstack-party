@@ -1,0 +1,88 @@
+{% extends 'app/layout.html.twig' %}
+
+{% block title %}
+    Issue
+{% endblock %}
+
+{% block app_body %}
+    <div class="issue-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="back">
+                        <i class="icon-back"></i>
+                        <a href="{{ path('issues') }}">
+                            Back to issues
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="panel panel-issue issue">
+                    <div class="panel-body">
+                        <div class="title">
+                            {{ issue.title }} <span class="number">#{{ issue.number }}</span>
+                        </div>
+
+                        <div class="info">
+                            <div class="label {{ issue.state }}">
+                                <i class="icon-{{ issue.state }}"></i>
+                                {{ issue.state|upper }}
+                            </div>
+                            <a href="{{ path('issues', {'creator' : issue.user.login }) }}">
+                                {{ issue.user.login }}
+                            </a>
+                            opened this issue {{ issue.created_at|time_diff }}
+                            {% if comments|default %}
+                                - {{ comments|length }} comment
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            {% markdown %}
+                                {{ issue.body }}
+                            {% endmarkdown %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comments">
+                    {% for comment in comments %}
+                        <div class="col-md-12">
+                            <div class="row">
+
+                                <div class="col-md-1">
+                                    <img src="{{ comment.user.avatar_url }}" alt="{{ comment.user.login }}"
+                                         class="avatar">
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="panel panel-comment">
+                                        <div class="panel-heading info">
+
+                                                <a href="{{ path('issues', {'creator' : issue.user.login }) }}">
+                                                    {{ comment.user.login }}
+                                                </a>
+                                                commented {{ comment.created_at|time_diff }}
+                                        </div>
+                                        <div class="panel-body">
+
+                                            <div>
+                                                {% markdown %}
+                                                    {{ comment.body }}
+                                                {% endmarkdown %}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
