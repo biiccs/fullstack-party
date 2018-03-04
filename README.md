@@ -59,6 +59,11 @@ docker-compose up
 
 After that open [http://0.0.0.0:8000](http://0.0.0.0:8000) in the browser.
 
+
+## Demo application
+You can also try [demo app](http://fullstack-party.herokuapp.com) online.
+
+
 # Great task for Great Fullstack Developer
 
 If you found this task it means we are looking for you!
