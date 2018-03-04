@@ -128,6 +128,16 @@ $top-menu-height: 112px;
   }
 
   .comments {
+    white-space: nowrap;
+    i {
+      position: relative;
+      top: 3px;
+      margin-right: 5px;
+    }
+    &:hover a {
+      text-decoration: underline;
+    }
+
     &, a {
       color: #999;
     }

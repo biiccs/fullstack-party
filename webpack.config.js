@@ -13,6 +13,7 @@ Encore
     // uncomment to define the assets of the project
     .addEntry('js/main', './assets/js/main.js')
     .addStyleEntry('css/main', './assets/css/main.scss')
+    .addStyleEntry('css/index', './assets/css/index.scss')
     .addStyleEntry('css/app', './assets/css/app.scss')
     .addEntry('logo', './assets/images/logo.png')
     .addEntry('img', './assets/images/img.jpg')
@@ -29,8 +30,6 @@ Encore
 
     // show OS notifications when builds finish/fail
     .enableBuildNotifications()
-
-
 ;
 
 module.exports = Encore.getWebpackConfig();

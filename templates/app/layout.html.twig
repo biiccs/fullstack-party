@@ -10,7 +10,7 @@
                     </a>
                     <div class="logout pull-right">
                         <i class="icon-logout"></i>
-                        <a href="">
+                        <a href="{{ path('logout') }}">
                             Logout
                         </a>
                     </div>
@@ -22,7 +22,7 @@
     {% block app_body %}{% endblock %}
 {% endblock %}
 
- {% block stylesheets %}
-     {{ parent() }}
-     <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
- {% endblock %}
+{% block stylesheets %}
+ {{ parent() }}
+ <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+{% endblock %}

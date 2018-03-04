@@ -13,7 +13,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class AppController extends Controller
 {
     /**
-     * @Route("issues", name="issues")
+     * @Route("/", name="index")
+     */
+    public function index()
+    {
+        $user = $this->getUser();
+        if ($user && in_array('ROLE_USER', $user->getRoles())) {
+            $this->redirectToRoute('issues');
+        }
+
+        return $this->render(
+            'app/index.html.twig'
+        );
+    }
+
+    /**
+     * @Route("/app", name="issues")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -37,12 +52,11 @@ class AppController extends Controller
     }
 
     /**
-     * @Route("issue/{id}", name="issue")
-     * @param Request $request
+     * @Route("/app/issue/{id}", name="issue")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function issue(Request $request, $id)
+    public function issue($id)
     {
         $provider = $this->get('Github\Provider');
         $issue = $provider->getIssue($id);
