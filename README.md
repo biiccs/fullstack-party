@@ -1,3 +1,64 @@
+# How to launch application
+
+## Before launch application
+Before launch application you must setup following environment variables:
+- APP_ENV (default: dev)
+- GITHUB_AUTH_METHOD (url_token/url_client_id/http_password/http_token/jwt)
+- GITHUB_USERNAME (token/username/client)
+- GITHUB_SECRET (password/secret)
+
+Recommended way is use GitHub App credentials.
+[How to create GitHub APP](https://developer.github.com/apps/building-github-apps/creating-a-github-app/). 
+If you use application with GitHub App then environment variables look similar:
+- GITHUB_AUTH_METHOD=url_client_id
+- GITHUB_USERNAME=client_id
+- GITHUB_SECRET=client_secret
+
+You can set these variables in system globally or can provide in .env file placed 
+in application root directory.  
+
+### Standalone
+
+For launch as local standalone application you need following tools:
+
+- [Git](https://git-scm.com/downloads)
+- [PHP 7](http://php.net/manual/en/install.php)
+- [Composer](https://getcomposer.org/download)
+- [NodeJs](https://nodejs.org/en/download/package-manager)
+- [Yarn](https://yarnpkg.com/en/docs/install)
+
+When you have all tools installed than run follow commands in app root directory:
+
+```
+composer install
+```
+
+```
+php bin/console server:run 0.0.0.0:8000
+```
+
+After that open [http://0.0.0.0:8000](http://0.0.0.0:8000) in the browser.
+
+### Docker
+For launch application with docker you need following tools:
+- [Docker](https://docs.docker.com/install/)
+
+When you have all tools installed than run follow commands in app root directory:
+
+```
+docker-compose build
+```
+
+```
+docker-compose run app composer install
+```
+
+```
+docker-compose up
+```
+
+After that open [http://0.0.0.0:8000](http://0.0.0.0:8000) in the browser.
+
 # Great task for Great Fullstack Developer
 
 If you found this task it means we are looking for you!
