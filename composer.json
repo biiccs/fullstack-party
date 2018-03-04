@@ -56,6 +56,7 @@
             "cache:clear": "symfony-cmd",
             "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
             "security-checker security:check": "script",
+            "yarn install": "script",
             "yarn build": "script"
         },
         "post-install-cmd": [

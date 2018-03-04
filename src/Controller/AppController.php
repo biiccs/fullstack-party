@@ -19,7 +19,7 @@ class AppController extends Controller
     {
         $user = $this->getUser();
         if ($user && in_array('ROLE_USER', $user->getRoles())) {
-            $this->redirectToRoute('issues');
+            return $this->redirectToRoute('issues');
         }
 
         return $this->render(
